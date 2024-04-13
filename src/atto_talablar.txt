@@ -1,0 +1,164 @@
+************************************** Atto **************************************
+
+##### Umumiy #####
+Atto loyihasi orqali yo‘lovchilar transportda to‘lovni alamga oshirishi mumkin.
+Yaʼni avtobus yoku metrolarda yo‘l kira haqini to‘lash mumkin.
+Quyidagi keltirilgan talablardan kelib chiqib loyihani quring.
+Pul to‘lash jarayoni Terminal va Atto kartalari orqali bajariladi.
+Yo‘lovchi kartani avtobus yoki metroda joylashgan terminalga tekkizgan holda to‘lovni amalga oshiradi.
+Sistemaga adminlar terminallarni va kartalarni  kiritish funksionali bo‘lishi kerak.
+
+
+##### Terminallar #####
+Admin Xitoydan olib kelinga terminallarni sistemaga. Xar bir terminalni yagona kodi u joylashgan adresi bo‘ladi.
+Shuningdek har bir terminalni statusi va sistemaga kiritilgan vaqti bo‘ladi.  status - ACTIVE,BLOCK bo‘lishi mumkun.
+(sode unique,address)
+Adminlar terminallarni qo‘shish, ularni maʼlumotlarini o‘zgartirish, statuslarini o‘zgartirish va barcha terminallar
+ro‘yxatini ko‘rish imkoni bo‘lishi kerak
+
+
+
+##### Kartalar #####
+Adminlar kartalarni ham Xitoydan olib kelishib ularni sistemaga kiritishadi.
+Xar bir kartaning yagona nomeri (16 raqamli),  amal qilish muddati(oy/yil), balansi, statusi,
+ sistemaga kiritilgan vaqti bo‘ladi.
+Adminlarda kartani Sistemega kiritish, kartalar ro‘yxatini ko‘rish, ularni maʼlumoti o‘zgartirish va
+statusini o‘zgartirish funksionali bo‘lishi kerak.
+
+Yo‘lovchilar kartani sotib olishdan oldin ular admin tamonidan sistemaga kiritilgan bo‘lishi kerak.
+
+Yo‘lovchi kartaga pul tashlashi mumkin bo‘ladi.
+Yo‘lovchi karta balansi, karta bilan qilingan to‘lovlar ro‘yxatini ko‘rish uchun o‘z nomerini kartaga bog‘lashi kerak.
+Bitta kartaga bir vaqtni o‘zida bitta telefon raqami bog‘lanishi mumkin.
+
+Yo‘lovchilar sistemega kirganidan keyin o‘ziga karta qo‘shish, qo‘shilgan kartalarni ro‘yxatini ko‘rish,
+ ularni statusini ko‘rish, ularni o‘zidan ochirib yuborish,karta hisobini to‘ldirish,
+ karta orqali qilingan to‘lovlarni ko‘rish imkoni bo‘lishi kerak.
+ Shuningdek karta bilan pul to‘lash imkoni ham bo‘lishi kerak.
+
+
+
+##### Foydalanuvchilar/Yo'lovchilar #####
+Yo‘lovchilar sistemada ro‘yxatdan o‘tish (registration) imkoni bo‘lishi kerak. ro‘yxatdan o‘tish uchun isim,familiya,
+telefon raqam va   parolni  kiritish kerak.
+Ro‘yxatdan o‘tgandan keyin sistemaga login qilib kirish mumkin.
+Adminlar ham sistemaga login bo‘lib kira oladi. Ammo ular ro‘yxatdan o‘tmaydi.
+Boshlang‘ich holatda sistemada admin bo‘lishi kerak.
+Adminlarda sistemadan ro‘yxatdan o‘tgan yo‘lovchilar ro‘yxatini ko‘ra bilish va ularni bloklash funksionali bolishi kerak.
+
+
+
+##### Statistika #####
+Adminlar quyidagi statistika maʼlumotlarini ko‘ra bilishi kerak:
+Barcha qilingan to‘lovlar ro‘yxati, kompaniya karta balansi,
+bugungi to‘lovlar, Kunlik to‘lovlar (bir kunlik to‘lovlar),
+oraliq to‘lovlar, terminalDTO orqali qilingan to‘lovlar, Karta orqali qilingan to‘lovlar.
+
+
+##### Table-lar #####
+1. Profile (name,surname,phone unique,pswd,created_date,visible,status,role)
+2. Card (number,exp_date,balance,status,visible,created_date)
+3. ProfileCard(id,cardId,profileId,visible,created_date)
+4. Terminal (code,address,status,visible,created_date)
+5. Transactions (card_id,amount,terminal_id,type,created_date)
+
+** Enums
+ Transaction Type: ReFill, Payment
+  Profile Role: USER,ADMIN
+
+
+##### Menular #####
+
+*** Menu ***
+1. Login
+    Enter phone:
+    Enter pswd:
+2. Registration:
+    Enter name:
+    Enter surname:
+    Enter phone:
+    Enter pswd:
+3. Make Payment (pul to'lash)
+    Enter cardNumber:
+    Enter terminal code:
+    (Transaction with type 'Payment')
+Chose number:
+
+
+*** User  Menu **
+    1. Add Card (number) - (cartani profile ga ulab qo'yamiz.)
+        Enter Card Number:
+        (kiritilgan cardDTO number database da bo'lishi va uning statusi aktive bo'lishi kerak.
+    2. Card List:
+        (number,exp_date,balance,joined_date)
+    3. Card Change Status
+        Enter card number:
+    4. Delete Card:
+        Enter cardDTO number:
+         (visible_user = false,deleted_user)
+
+    5. ReFill (pul tashlash) (carta userga tegishli bo'lishi kerak.)
+        Enter number:
+        Amount:
+        (Transaction with type 'ReFill')
+    6. Transaction
+        CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi)
+
+*** Admin Menu ***
+    (Card)
+    1. Create Card:
+        Enter number:
+        Enter expDate:
+    2. Card List:
+        (id, number,balance, status, created_date)
+    3. Update Card:
+        Enter cardDTO number:
+        Enter cardDTO exp_date:
+    4. Change Card status
+        Enter card number:
+    5. Delete Card
+        Enter card number:
+
+
+    (Terminal)
+    6. Create Terminal
+        Enter code:
+        Enter address:
+    7. Terminal List
+        (id, Code, Address , Status , CreatedDate)
+    8. Update Terminal
+        Enter code:
+        Enter address:
+    9. Change Terminal Status
+        Enter code:
+    10. Delete Terminal
+        Enter code:
+
+    (Profile)
+    11. Profile List
+        (id, name, surname, phone, cardCount, status, createdDate)
+    12. Change Profile Status (by phone)
+        Enter phone:
+
+    (Transaction)
+    13. Transaction List
+        CardNumber, Profile name, Profile surname, TerminalNumber,Terminal address, Amount, TransactionDate, Type,  (oxirgi birinchi ko'rinadi)
+    14. Company Card Balance
+        (cardDTO bo'ladi shu cardga to'lovlar tushadi. bu sql da insert qilingan bo'ladi)
+
+       (Statistic)
+    15. Bugungi to'lovlar
+          CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi)
+    16. Kunlik to'lovlar (bir kunlik to'lovlar):
+        Enter Date: yyyy-MM-dd
+           CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi)
+    17. Oraliq to'lovlar:
+        Enter FromDate: yyyy-MM-dd
+        Enter ToDate:   yyyy-MM-dd
+        ( CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi))
+    18. Transaction by Terminal:
+        Enter terminal code:
+        ( CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi))
+    19. Transaction By Card:
+        Enter Card number:
+        (  CardNumber, Address, Amount,TransactionDate,Type (oxirgi birinchi ko'rinadi))
